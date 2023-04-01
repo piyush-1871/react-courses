@@ -1,10 +1,24 @@
 import React from 'react'
-import {FcLike} from 'react-icons/fc'
+import { useState } from 'react';
+import {FcLike, FcLikePlaceholder} from 'react-icons/fc'
+import { toast } from 'react-toastify';
 
 function Card(props) {
     let course = props.course;
+    let likedCourses = props.likedCourses;
+    let setLikedCourses = props.setLikedCourses;
     function handleLike(){
-        
+        if(likedCourses.includes(course.id)){
+            setLikedCourses((prev)=> prev.filter((cid)=>(cid !== course.id)));
+            toast.error("Unliked Successfully!")
+        }else{
+            if(likedCourses.lenght === 0){
+                setLikedCourses([course.id]);
+            }else{
+                setLikedCourses((prev)=> [...prev, course.id]);
+            }
+            toast.success("Liked Successfully!")
+        }
     }
     
   return (
@@ -14,7 +28,13 @@ function Card(props) {
             alt="" className="object-contain" />
             <div className="absolute rounded-full w-[30px] h-[30px] grid place-items-center bg-white right-1 -bottom-4">
                 <button onClick={handleLike}>
-                    <FcLike fontSize="1.75rem" />
+                    {
+                        likedCourses.includes(course.id) ? (
+                            <FcLikePlaceholder fontSize="1.75rem" />
+                        ) : (
+                            <FcLike fontSize="1.75rem" />
+                        )
+                    }
                 </button>
             </div>
         </div>

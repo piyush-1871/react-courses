@@ -1,9 +1,11 @@
 import React from "react";
 import Card from "./Card";
+import { useState } from "react";
 
 function Cards(props) {
     let courses = props.courses;
     let allCourses = [];
+    const [likedCourses, setLikedCourses] = useState([]);
   
     function getCourses() {
       Object.values(courses).forEach((array) => {
@@ -23,7 +25,7 @@ function Cards(props) {
       <div className="flex flex-wrap justify-center gap-4 mb-4">
         {coursesArray.length > 0 ? (
           coursesArray.map((course) => (
-            course.id ? <Card key={course.id} course={course} /> : null
+            course.id ? <Card key={course.id} likedCourses={likedCourses} setLikedCourses={setLikedCourses} course={course} /> : null
           ))
         ) : (
           <p>No courses found.</p>
