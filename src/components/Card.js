@@ -29,7 +29,7 @@ function Card(props) {
             <div className="absolute rounded-full w-[30px] h-[30px] grid place-items-center bg-white right-1 -bottom-4">
                 <button onClick={handleLike}>
                     {
-                        likedCourses.includes(course.id) ? (
+                        !likedCourses.includes(course.id) ? (
                             <FcLikePlaceholder fontSize="1.75rem" />
                         ) : (
                             <FcLike fontSize="1.75rem" />
@@ -40,7 +40,15 @@ function Card(props) {
         </div>
         <div className="p-4 text-white">
             <p className="font-semibold text-lg leading-6">{course.title}</p>
-            <p className="mt-2">{course.description}</p>
+            <p className="mt-2">
+                {
+                    course.description.length >100 ? (
+                        course.description.substr(0,100) + "..."
+                    ) : (
+                        course.description
+                    )
+                }
+            </p>
         </div>
     </div>
   )

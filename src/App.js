@@ -11,7 +11,7 @@ import Spinner from "./components/Spinner";
 const App = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [category, setCategory] = useState(filterData[0].title);
   async function fetchData() {
     setLoading(true);
     try {
@@ -35,10 +35,10 @@ const App = () => {
         <Navbar />
       </div>
       <div className="">
-        <Filter filterData={filterData} />
+        <Filter filterData={filterData} category={category} setCategory={setCategory} />
       </div>
       <div className="flex w-11/12 flex-wrap max-w-[1200px] items-center min-h-[50vh] mx-auto justify-center">
-        {loading ? <Spinner /> : <Cards courses={courses} />}
+        {loading ? <Spinner /> : <Cards courses={courses} category={category} />}
       </div>
     </div>
   );
