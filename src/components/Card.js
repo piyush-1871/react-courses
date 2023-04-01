@@ -7,17 +7,17 @@ function Card(props) {
     let course = props.course;
     let likedCourses = props.likedCourses;
     let setLikedCourses = props.setLikedCourses;
-    function handleLike(){
+    function handleLike(title){
         if(likedCourses.includes(course.id)){
             setLikedCourses((prev)=> prev.filter((cid)=>(cid !== course.id)));
-            toast.error("Unliked Successfully!")
+            toast.error(`You Unliked the course ${course.title}`)
         }else{
             if(likedCourses.lenght === 0){
                 setLikedCourses([course.id]);
             }else{
                 setLikedCourses((prev)=> [...prev, course.id]);
             }
-            toast.success("Liked Successfully!")
+            toast.success(`You Liked the course ${course.title}`)
         }
     }
     
@@ -27,7 +27,7 @@ function Card(props) {
             <img src={course.image.url} 
             alt="" className="object-contain" />
             <div className="absolute rounded-full w-[30px] h-[30px] grid place-items-center bg-white right-1 -bottom-4">
-                <button onClick={handleLike}>
+                <button onClick={()=>handleLike(course.title)}>
                     {
                         !likedCourses.includes(course.id) ? (
                             <FcLikePlaceholder fontSize="1.75rem" />
